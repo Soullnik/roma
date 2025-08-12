@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.6.0/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.6.0/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_ddb20b19967c4bd8a761666d226cc4e8 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+            </style>
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_ddb20b19967c4bd8a761666d226cc4e8" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_ddb20b19967c4bd8a761666d226cc4e8 = L.map(
+                "map_ddb20b19967c4bd8a761666d226cc4e8",
+                {
+                    center: [41.896, 12.482],
+                    crs: L.CRS.EPSG3857,
+                    zoom: 12,
+                    zoomControl: true,
+                    preferCanvas: false,
+                }
+            );
+            L.control.scale().addTo(map_ddb20b19967c4bd8a761666d226cc4e8);
+
+            
+
+        
+    
+            var tile_layer_587ef221622da5f2635887d3ce70434a = L.tileLayer(
+                "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {"attribution": "Data by \u0026copy; \u003ca href=\"http://openstreetmap.org\"\u003eOpenStreetMap\u003c/a\u003e, under \u003ca href=\"http://www.openstreetmap.org/copyright\"\u003eODbL\u003c/a\u003e.", "detectRetina": false, "maxNativeZoom": 18, "maxZoom": 18, "minZoom": 0, "noWrap": false, "opacity": 1, "subdomains": "abc", "tms": false}
+            ).addTo(map_ddb20b19967c4bd8a761666d226cc4e8);
+        
+    
+            var feature_group_cde4f395ca6f2aeb2072fcfa2e2c303c = L.featureGroup(
+                {}
+            ).addTo(map_ddb20b19967c4bd8a761666d226cc4e8);
+        
+    
+            var marker_186a0e5a8e82a22d4f11d52119202f1e = L.marker(
+                [41.85266, 12.47967],
+                {}
+            ).addTo(feature_group_cde4f395ca6f2aeb2072fcfa2e2c303c);
+        
+    
+        var popup_0ca0d31d4180ba22b5ec69a394adde3d = L.popup({"maxWidth": "100%"});
+
+        
+            var html_6611988b700e7a4b3b9976f1234663fc = $(`<div id="html_6611988b700e7a4b3b9976f1234663fc" style="width: 100.0%; height: 100.0%;">Ваш адрес (Viale Giustiniano Imperatore, 272)<br/>Старт</div>`)[0];
+            popup_0ca0d31d4180ba22b5ec69a394adde3d.setContent(html_6611988b700e7a4b3b9976f1234663fc);
+        
+
+        marker_186a0e5a8e82a22d4f11d52119202f1e.bindPopup(popup_0ca0d31d4180ba22b5ec69a394adde3d)
+        ;
+
+        
+    
+    
+            var marker_70b7d8d63ea4e75c06f907acbd4cefab = L.marker(
+                [41.8563, 12.4769],
+                {}
+            ).addTo(feature_group_cde4f395ca6f2aeb2072fcfa2e2c303c);
+        
+    
+        var popup_d1129f4ab748314ef67fcb35dcc5ee9d = L.popup({"maxWidth": "100%"});
+
+        
+            var html_d18990429fe7fbd9927c5d72d6d3930b = $(`<div id="html_d18990429fe7fbd9927c5d72d6d3930b" style="width: 100.0%; height: 100.0%;">Basilica di San Paolo fuori le Mura<br/>Piazzale San Paolo, 1</div>`)[0];
+            popup_d1129f4ab748314ef67fcb35dcc5ee9d.setContent(html_d18990429fe7fbd9927c5d72d6d3930b);
+        
+
+        marker_70b7d8d63ea4e75c06f907acbd4cefab.bindPopup(popup_d1129f4ab748314ef67fcb35dcc5ee9d)
+        ;
+
+        
+    
+    
+            var marker_b060ef18e18095922652b39df45da264 = L.marker(
+                [41.8706, 12.4778],
+                {}
+            ).addTo(feature_group_cde4f395ca6f2aeb2072fcfa2e2c303c);
+        
+    
+        var popup_154671ecfa06b1d6514fdc4261a32223 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_37943292362a2097ed95ceafc84b9c02 = $(`<div id="html_37943292362a2097ed95ceafc84b9c02" style="width: 100.0%; height: 100.0%;">Street Art Ostiense (Via del Porto Fluviale)<br/>Via del Porto Fluviale, 3–5</div>`)[0];
+            popup_154671ecfa06b1d6514fdc4261a32223.setContent(html_37943292362a2097ed95ceafc84b9c02);
+        
+
+        marker_b060ef18e18095922652b39df45da264.bindPopup(popup_154671ecfa06b1d6514fdc4261a32223)
+        ;
+
+        
+    
+    
+            var marker_048d27adb655c907fe37a0c4f43c7889 = L.marker(
+                [41.8765, 12.4762],
+                {}
+            ).addTo(feature_group_cde4f395ca6f2aeb2072fcfa2e2c303c);
+        
+    
+        var popup_c7054962d8f1774d03ee84c474adf581 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_57c355c828b1adab2572dfe6a90f54ac = $(`<div id="html_57c355c828b1adab2572dfe6a90f54ac" style="width: 100.0%; height: 100.0%;">Mercato di Testaccio (ужин до 15:30)<br/>Via Aldo Manuzio, 66b</div>`)[0];
+            popup_c7054962d8f1774d03ee84c474adf581.setContent(html_57c355c828b1adab2572dfe6a90f54ac);
+        
+
+        marker_048d27adb655c907fe37a0c4f43c7889.bindPopup(popup_c7054962d8f1774d03ee84c474adf581)
+        ;
+
+        
+    
+    
+            var poly_line_dfc716d29eaf1eaacbafa4ea33438ebe = L.polyline(
+                [[41.85266, 12.47967], [41.8563, 12.4769], [41.8706, 12.4778], [41.8765, 12.4762]],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 3}
+            ).addTo(feature_group_cde4f395ca6f2aeb2072fcfa2e2c303c);
+        
+    
+            var feature_group_49da16c2cf7796c4591a0a15dae0904c = L.featureGroup(
+                {}
+            ).addTo(map_ddb20b19967c4bd8a761666d226cc4e8);
+        
+    
+            var marker_b13ecd884ad94f55b4c10d2eb2f26d41 = L.marker(
+                [41.85266, 12.47967],
+                {}
+            ).addTo(feature_group_49da16c2cf7796c4591a0a15dae0904c);
+        
+    
+        var popup_102f416a4dfa0da34117b92600852f89 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_aedf600677561d4a00526fd6fe0caffa = $(`<div id="html_aedf600677561d4a00526fd6fe0caffa" style="width: 100.0%; height: 100.0%;">Ваш адрес (Viale Giustiniano Imperatore, 272)<br/>Старт</div>`)[0];
+            popup_102f416a4dfa0da34117b92600852f89.setContent(html_aedf600677561d4a00526fd6fe0caffa);
+        
+
+        marker_b13ecd884ad94f55b4c10d2eb2f26d41.bindPopup(popup_102f416a4dfa0da34117b92600852f89)
+        ;
+
+        
+    
+    
+            var marker_84dcef7b5b09bd067f8ab6701bfe5ce0 = L.marker(
+                [41.9022, 12.4539],
+                {}
+            ).addTo(feature_group_49da16c2cf7796c4591a0a15dae0904c);
+        
+    
+        var popup_5ee45b7e3805ee4a05f7c33984591f0b = L.popup({"maxWidth": "100%"});
+
+        
+            var html_20c489f525db73de0e5dc06fb0579958 = $(`<div id="html_20c489f525db73de0e5dc06fb0579958" style="width: 100.0%; height: 100.0%;">Basilica di San Pietro (вход бесплатный)<br/>Piazza San Pietro</div>`)[0];
+            popup_5ee45b7e3805ee4a05f7c33984591f0b.setContent(html_20c489f525db73de0e5dc06fb0579958);
+        
+
+        marker_84dcef7b5b09bd067f8ab6701bfe5ce0.bindPopup(popup_5ee45b7e3805ee4a05f7c33984591f0b)
+        ;
+
+        
+    
+    
+            var marker_5ed18fa2453afed9409425ee3d1c06e5 = L.marker(
+                [41.9029, 12.4663],
+                {}
+            ).addTo(feature_group_49da16c2cf7796c4591a0a15dae0904c);
+        
+    
+        var popup_8eda11df3a39370ebe0c05fbdf48d0bc = L.popup({"maxWidth": "100%"});
+
+        
+            var html_887810754ff8ed25a553d5f996540107 = $(`<div id="html_887810754ff8ed25a553d5f996540107" style="width: 100.0%; height: 100.0%;">Ponte Sant'Angelo<br/>Ponte Sant'Angelo</div>`)[0];
+            popup_8eda11df3a39370ebe0c05fbdf48d0bc.setContent(html_887810754ff8ed25a553d5f996540107);
+        
+
+        marker_5ed18fa2453afed9409425ee3d1c06e5.bindPopup(popup_8eda11df3a39370ebe0c05fbdf48d0bc)
+        ;
+
+        
+    
+    
+            var marker_96999f89db57096d277659b3fff000ef = L.marker(
+                [41.8992, 12.4731],
+                {}
+            ).addTo(feature_group_49da16c2cf7796c4591a0a15dae0904c);
+        
+    
+        var popup_bd854a60b34f3583220f476b64926a1c = L.popup({"maxWidth": "100%"});
+
+        
+            var html_ee9955d793be024a695931880e99baab = $(`<div id="html_ee9955d793be024a695931880e99baab" style="width: 100.0%; height: 100.0%;">Piazza Navona<br/>Piazza Navona</div>`)[0];
+            popup_bd854a60b34f3583220f476b64926a1c.setContent(html_ee9955d793be024a695931880e99baab);
+        
+
+        marker_96999f89db57096d277659b3fff000ef.bindPopup(popup_bd854a60b34f3583220f476b64926a1c)
+        ;
+
+        
+    
+    
+            var marker_f4e3f141858aecec32fe48f284fd66b9 = L.marker(
+                [41.8986, 12.4768],
+                {}
+            ).addTo(feature_group_49da16c2cf7796c4591a0a15dae0904c);
+        
+    
+        var popup_6a3fced55e0cac09f5c7bdf5c14ecb8f = L.popup({"maxWidth": "100%"});
+
+        
+            var html_907551f358008f44475aa22d06633eed = $(`<div id="html_907551f358008f44475aa22d06633eed" style="width: 100.0%; height: 100.0%;">Pantheon (внутрь 5 €, опц.)<br/>Piazza della Rotonda</div>`)[0];
+            popup_6a3fced55e0cac09f5c7bdf5c14ecb8f.setContent(html_907551f358008f44475aa22d06633eed);
+        
+
+        marker_f4e3f141858aecec32fe48f284fd66b9.bindPopup(popup_6a3fced55e0cac09f5c7bdf5c14ecb8f)
+        ;
+
+        
+    
+    
+            var marker_3a905005356832ab0c495c2c21c342f2 = L.marker(
+                [41.9009, 12.4833],
+                {}
+            ).addTo(feature_group_49da16c2cf7796c4591a0a15dae0904c);
+        
+    
+        var popup_884426e7e40dab49e2f458193d1ac2c5 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_468c11761423eefbf2e3b7a900299052 = $(`<div id="html_468c11761423eefbf2e3b7a900299052" style="width: 100.0%; height: 100.0%;">Fontana di Trevi<br/>Piazza di Trevi</div>`)[0];
+            popup_884426e7e40dab49e2f458193d1ac2c5.setContent(html_468c11761423eefbf2e3b7a900299052);
+        
+
+        marker_3a905005356832ab0c495c2c21c342f2.bindPopup(popup_884426e7e40dab49e2f458193d1ac2c5)
+        ;
+
+        
+    
+    
+            var marker_8a3036493d5d91243dfc399b55d6d73b = L.marker(
+                [41.9059, 12.4823],
+                {}
+            ).addTo(feature_group_49da16c2cf7796c4591a0a15dae0904c);
+        
+    
+        var popup_7f11611e423b1a017b7083448e9d48c7 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_84a8834fce28a91b37c4fe43f66b8172 = $(`<div id="html_84a8834fce28a91b37c4fe43f66b8172" style="width: 100.0%; height: 100.0%;">Spanish Steps<br/>Piazza di Spagna</div>`)[0];
+            popup_7f11611e423b1a017b7083448e9d48c7.setContent(html_84a8834fce28a91b37c4fe43f66b8172);
+        
+
+        marker_8a3036493d5d91243dfc399b55d6d73b.bindPopup(popup_7f11611e423b1a017b7083448e9d48c7)
+        ;
+
+        
+    
+    
+            var marker_c30060af9e2846ddee2cc516629a78b0 = L.marker(
+                [41.9105, 12.4789],
+                {}
+            ).addTo(feature_group_49da16c2cf7796c4591a0a15dae0904c);
+        
+    
+        var popup_99a4738a1e31f97e481a0b1befae6939 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_671d4962f61f91ca394085b885fd1ab5 = $(`<div id="html_671d4962f61f91ca394085b885fd1ab5" style="width: 100.0%; height: 100.0%;">Terrazza del Pincio (закат)<br/>Viale Gabriele D'Annunzio</div>`)[0];
+            popup_99a4738a1e31f97e481a0b1befae6939.setContent(html_671d4962f61f91ca394085b885fd1ab5);
+        
+
+        marker_c30060af9e2846ddee2cc516629a78b0.bindPopup(popup_99a4738a1e31f97e481a0b1befae6939)
+        ;
+
+        
+    
+    
+            var poly_line_7ef39569bc44762abec6be30c512a13d = L.polyline(
+                [[41.85266, 12.47967], [41.9022, 12.4539], [41.9029, 12.4663], [41.8992, 12.4731], [41.8986, 12.4768], [41.9009, 12.4833], [41.9059, 12.4823], [41.9105, 12.4789]],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 3}
+            ).addTo(feature_group_49da16c2cf7796c4591a0a15dae0904c);
+        
+    
+            var feature_group_75aed04079f3076203d765cb13e3a40a = L.featureGroup(
+                {}
+            ).addTo(map_ddb20b19967c4bd8a761666d226cc4e8);
+        
+    
+            var marker_34070d3f584bba28d694ae6c34343ebc = L.marker(
+                [41.85266, 12.47967],
+                {}
+            ).addTo(feature_group_75aed04079f3076203d765cb13e3a40a);
+        
+    
+        var popup_9daa6a1d7a1f89532939a28429c1acc6 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_cf3cef606bfb6be61aadd6c8d6024c31 = $(`<div id="html_cf3cef606bfb6be61aadd6c8d6024c31" style="width: 100.0%; height: 100.0%;">Ваш адрес (Viale Giustiniano Imperatore, 272)<br/>Старт</div>`)[0];
+            popup_9daa6a1d7a1f89532939a28429c1acc6.setContent(html_cf3cef606bfb6be61aadd6c8d6024c31);
+        
+
+        marker_34070d3f584bba28d694ae6c34343ebc.bindPopup(popup_9daa6a1d7a1f89532939a28429c1acc6)
+        ;
+
+        
+    
+    
+            var marker_e995883931d4016348e2339aa33c897e = L.marker(
+                [41.8998, 12.4823],
+                {}
+            ).addTo(feature_group_75aed04079f3076203d765cb13e3a40a);
+        
+    
+        var popup_76f2495bc7ead0ff6f27152eadf3bd01 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_aa58ecdd9e19e6054372b1a4378b0c3e = $(`<div id="html_aa58ecdd9e19e6054372b1a4378b0c3e" style="width: 100.0%; height: 100.0%;">Palazzo Colonna — Short Itinerary (€15)<br/>Вход по сб: Via della Pilotta, 17 (9:15–13:15 последний вход)</div>`)[0];
+            popup_76f2495bc7ead0ff6f27152eadf3bd01.setContent(html_aa58ecdd9e19e6054372b1a4378b0c3e);
+        
+
+        marker_e995883931d4016348e2339aa33c897e.bindPopup(popup_76f2495bc7ead0ff6f27152eadf3bd01)
+        ;
+
+        
+    
+    
+            var marker_672316e0da96c2262c35a5d83f7ffed5 = L.marker(
+                [41.9095, 12.4516],
+                {}
+            ).addTo(feature_group_75aed04079f3076203d765cb13e3a40a);
+        
+    
+        var popup_41090229f35c7b347e63290e37812162 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_18c655cf494d72caa5cb7f562cebc377 = $(`<div id="html_18c655cf494d72caa5cb7f562cebc377" style="width: 100.0%; height: 100.0%;">Mercato Trionfale (закрывается ~14:00)<br/>Via Andrea Doria, 3/41</div>`)[0];
+            popup_41090229f35c7b347e63290e37812162.setContent(html_18c655cf494d72caa5cb7f562cebc377);
+        
+
+        marker_672316e0da96c2262c35a5d83f7ffed5.bindPopup(popup_41090229f35c7b347e63290e37812162)
+        ;
+
+        
+    
+    
+            var marker_c828bdeb434e5fd3913952ced33ad000 = L.marker(
+                [41.9029, 12.4988],
+                {}
+            ).addTo(feature_group_75aed04079f3076203d765cb13e3a40a);
+        
+    
+        var popup_dec7caafe965ac373a61e2c48dae87ba = L.popup({"maxWidth": "100%"});
+
+        
+            var html_59f70408f99156f1754d54d4d7490162 = $(`<div id="html_59f70408f99156f1754d54d4d7490162" style="width: 100.0%; height: 100.0%;">Museo dell’Arte Salvata (free до 31.08)<br/>Viale Enrico de Nicola, 78</div>`)[0];
+            popup_dec7caafe965ac373a61e2c48dae87ba.setContent(html_59f70408f99156f1754d54d4d7490162);
+        
+
+        marker_c828bdeb434e5fd3913952ced33ad000.bindPopup(popup_dec7caafe965ac373a61e2c48dae87ba)
+        ;
+
+        
+    
+    
+            var marker_602200c1956e860dc631eaa36ee0f36e = L.marker(
+                [41.8895, 12.4701],
+                {}
+            ).addTo(feature_group_75aed04079f3076203d765cb13e3a40a);
+        
+    
+        var popup_222f12a380e9aabe50eb7e0231a47646 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_f12905119f975cf7bab01bde0ce90245 = $(`<div id="html_f12905119f975cf7bab01bde0ce90245" style="width: 100.0%; height: 100.0%;">Piazza di Santa Maria in Trastevere<br/>Trastevere</div>`)[0];
+            popup_222f12a380e9aabe50eb7e0231a47646.setContent(html_f12905119f975cf7bab01bde0ce90245);
+        
+
+        marker_602200c1956e860dc631eaa36ee0f36e.bindPopup(popup_222f12a380e9aabe50eb7e0231a47646)
+        ;
+
+        
+    
+    
+            var marker_a52854c7983f67c45fd6a1713feb525f = L.marker(
+                [41.8799, 12.4798],
+                {}
+            ).addTo(feature_group_75aed04079f3076203d765cb13e3a40a);
+        
+    
+        var popup_481801ed7acef48928b5d1f94f829e9c = L.popup({"maxWidth": "100%"});
+
+        
+            var html_48655b799763ef1c46ff7c191793a5ea = $(`<div id="html_48655b799763ef1c46ff7c191793a5ea" style="width: 100.0%; height: 100.0%;">Giardino degli Aranci + Keyhole<br/>Piazza dei Cavalieri di Malta, 3</div>`)[0];
+            popup_481801ed7acef48928b5d1f94f829e9c.setContent(html_48655b799763ef1c46ff7c191793a5ea);
+        
+
+        marker_a52854c7983f67c45fd6a1713feb525f.bindPopup(popup_481801ed7acef48928b5d1f94f829e9c)
+        ;
+
+        
+    
+    
+            var poly_line_03dd3ac23149d9aecc6e72f2ae6a1ccf = L.polyline(
+                [[41.85266, 12.47967], [41.8998, 12.4823], [41.9095, 12.4516], [41.9029, 12.4988], [41.8895, 12.4701], [41.8799, 12.4798]],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 3}
+            ).addTo(feature_group_75aed04079f3076203d765cb13e3a40a);
+        
+    
+            var feature_group_bbc91c5c887c125472543da944802d23 = L.featureGroup(
+                {}
+            ).addTo(map_ddb20b19967c4bd8a761666d226cc4e8);
+        
+    
+            var marker_ac1b78262a0176203e954f81f16315f6 = L.marker(
+                [41.85266, 12.47967],
+                {}
+            ).addTo(feature_group_bbc91c5c887c125472543da944802d23);
+        
+    
+        var popup_1713d0544dc3861f657079d713c84925 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_a99332f75cfa5b9cd259699d4729e87e = $(`<div id="html_a99332f75cfa5b9cd259699d4729e87e" style="width: 100.0%; height: 100.0%;">Ваш адрес (Viale Giustiniano Imperatore, 272)<br/>Старт</div>`)[0];
+            popup_1713d0544dc3861f657079d713c84925.setContent(html_a99332f75cfa5b9cd259699d4729e87e);
+        
+
+        marker_ac1b78262a0176203e954f81f16315f6.bindPopup(popup_1713d0544dc3861f657079d713c84925)
+        ;
+
+        
+    
+    
+            var marker_73ee5e8dcf3d74f994b921e6772bad8c = L.marker(
+                [41.8736, 12.4985],
+                {}
+            ).addTo(feature_group_bbc91c5c887c125472543da944802d23);
+        
+    
+        var popup_72b215ee2c8be7d2e55988e44d821d35 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_12666efc2287a207979dbe63846639e2 = $(`<div id="html_12666efc2287a207979dbe63846639e2" style="width: 100.0%; height: 100.0%;">Porta San Sebastiano / Museo delle Mura<br/>Via di Porta San Sebastiano, 18</div>`)[0];
+            popup_72b215ee2c8be7d2e55988e44d821d35.setContent(html_12666efc2287a207979dbe63846639e2);
+        
+
+        marker_73ee5e8dcf3d74f994b921e6772bad8c.bindPopup(popup_72b215ee2c8be7d2e55988e44d821d35)
+        ;
+
+        
+    
+    
+            var marker_e2772a817ae885801be2803867f31925 = L.marker(
+                [41.8396, 12.5202],
+                {}
+            ).addTo(feature_group_bbc91c5c887c125472543da944802d23);
+        
+    
+        var popup_dd824c0299a80d6d577d4d431effc56a = L.popup({"maxWidth": "100%"});
+
+        
+            var html_01136765927a5c86a57d63fcf7d9ec3b = $(`<div id="html_01136765927a5c86a57d63fcf7d9ec3b" style="width: 100.0%; height: 100.0%;">Mausoleo di Cecilia Metella (снаружи)<br/>Via Appia Antica, 161</div>`)[0];
+            popup_dd824c0299a80d6d577d4d431effc56a.setContent(html_01136765927a5c86a57d63fcf7d9ec3b);
+        
+
+        marker_e2772a817ae885801be2803867f31925.bindPopup(popup_dd824c0299a80d6d577d4d431effc56a)
+        ;
+
+        
+    
+    
+            var marker_702dac23e470dc390c05862f569a41a6 = L.marker(
+                [41.8562, 12.5651],
+                {}
+            ).addTo(feature_group_bbc91c5c887c125472543da944802d23);
+        
+    
+        var popup_0c52f4f4561590bd946f804887715c92 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_a54c4b723064032cf1132b68dd082ec7 = $(`<div id="html_a54c4b723064032cf1132b68dd082ec7" style="width: 100.0%; height: 100.0%;">Parco degli Acquedotti (если будет время)<br/>Via Lemonia, 256</div>`)[0];
+            popup_0c52f4f4561590bd946f804887715c92.setContent(html_a54c4b723064032cf1132b68dd082ec7);
+        
+
+        marker_702dac23e470dc390c05862f569a41a6.bindPopup(popup_0c52f4f4561590bd946f804887715c92)
+        ;
+
+        
+    
+    
+            var marker_781f55b443c09843830a0a9893e5d6d4 = L.marker(
+                [41.8928, 12.4847],
+                {}
+            ).addTo(feature_group_bbc91c5c887c125472543da944802d23);
+        
+    
+        var popup_e4ac3eecb0dd99fdc1e7a5e7baddf5c0 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_5aa3272810f83f369eb3ad43fe0e82b8 = $(`<div id="html_5aa3272810f83f369eb3ad43fe0e82b8" style="width: 100.0%; height: 100.0%;">Terrazza sul Foro (вид на Форум)<br/>Via Monte Tarpeo / Piazzale Caffarelli</div>`)[0];
+            popup_e4ac3eecb0dd99fdc1e7a5e7baddf5c0.setContent(html_5aa3272810f83f369eb3ad43fe0e82b8);
+        
+
+        marker_781f55b443c09843830a0a9893e5d6d4.bindPopup(popup_e4ac3eecb0dd99fdc1e7a5e7baddf5c0)
+        ;
+
+        
+    
+    
+            var poly_line_a51c05898b4dd58ef92e6e44914aec9c = L.polyline(
+                [[41.85266, 12.47967], [41.8736, 12.4985], [41.8396, 12.5202], [41.8562, 12.5651], [41.8928, 12.4847]],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 3}
+            ).addTo(feature_group_bbc91c5c887c125472543da944802d23);
+        
+    
+            var feature_group_fc417be9e2a8850c12ef77ea3ba5339e = L.featureGroup(
+                {}
+            ).addTo(map_ddb20b19967c4bd8a761666d226cc4e8);
+        
+    
+            var marker_90fee4751afa4689822117529241ceb1 = L.marker(
+                [41.85266, 12.47967],
+                {}
+            ).addTo(feature_group_fc417be9e2a8850c12ef77ea3ba5339e);
+        
+    
+        var popup_82b14ce0af191d1dff438c05995c472c = L.popup({"maxWidth": "100%"});
+
+        
+            var html_1b8c123d434c58f35c6520272b43101e = $(`<div id="html_1b8c123d434c58f35c6520272b43101e" style="width: 100.0%; height: 100.0%;">Ваш адрес (Viale Giustiniano Imperatore, 272)<br/>Старт</div>`)[0];
+            popup_82b14ce0af191d1dff438c05995c472c.setContent(html_1b8c123d434c58f35c6520272b43101e);
+        
+
+        marker_90fee4751afa4689822117529241ceb1.bindPopup(popup_82b14ce0af191d1dff438c05995c472c)
+        ;
+
+        
+    
+    
+            var marker_deedc7aae25676296b3279a0ebb10fe2 = L.marker(
+                [41.901, 12.5018],
+                {}
+            ).addTo(feature_group_fc417be9e2a8850c12ef77ea3ba5339e);
+        
+    
+        var popup_3d26f9df0f762e8d5f56f2449d02251e = L.popup({"maxWidth": "100%"});
+
+        
+            var html_7369e4ab8afddb520b269f2a0913c499 = $(`<div id="html_7369e4ab8afddb520b269f2a0913c499" style="width: 100.0%; height: 100.0%;">Stazione Roma Termini (Regionale до Castel Gandolfo)<br/>Piazza dei Cinquecento, 1</div>`)[0];
+            popup_3d26f9df0f762e8d5f56f2449d02251e.setContent(html_7369e4ab8afddb520b269f2a0913c499);
+        
+
+        marker_deedc7aae25676296b3279a0ebb10fe2.bindPopup(popup_3d26f9df0f762e8d5f56f2449d02251e)
+        ;
+
+        
+    
+    
+            var marker_0ee6849e5abade439997d6a859786f10 = L.marker(
+                [41.7488, 12.6501],
+                {}
+            ).addTo(feature_group_fc417be9e2a8850c12ef77ea3ba5339e);
+        
+    
+        var popup_0fcbd4c92a5c45825a1067972cc1a196 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_d5b9cb98e29bc9348bab48ab4758f89c = $(`<div id="html_d5b9cb98e29bc9348bab48ab4758f89c" style="width: 100.0%; height: 100.0%;">Stazione Castel Gandolfo<br/>00073 Castel Gandolfo RM</div>`)[0];
+            popup_0fcbd4c92a5c45825a1067972cc1a196.setContent(html_d5b9cb98e29bc9348bab48ab4758f89c);
+        
+
+        marker_0ee6849e5abade439997d6a859786f10.bindPopup(popup_0fcbd4c92a5c45825a1067972cc1a196)
+        ;
+
+        
+    
+    
+            var marker_6c516d5c08b4c75591576730ea665f77 = L.marker(
+                [41.7446, 12.6498],
+                {}
+            ).addTo(feature_group_fc417be9e2a8850c12ef77ea3ba5339e);
+        
+    
+        var popup_ef1968426baeec8b5bf18699cb0176cc = L.popup({"maxWidth": "100%"});
+
+        
+            var html_e1076809811c85bb70e547b7a6322d12 = $(`<div id="html_e1076809811c85bb70e547b7a6322d12" style="width: 100.0%; height: 100.0%;">Canoa/Kayak Rental — Spiaggia del Lago<br/>Via Spiaggia del Lago, 18</div>`)[0];
+            popup_ef1968426baeec8b5bf18699cb0176cc.setContent(html_e1076809811c85bb70e547b7a6322d12);
+        
+
+        marker_6c516d5c08b4c75591576730ea665f77.bindPopup(popup_ef1968426baeec8b5bf18699cb0176cc)
+        ;
+
+        
+    
+    
+            var marker_256ed737966515fecf28802ee19ca081 = L.marker(
+                [41.8346, 12.4716],
+                {}
+            ).addTo(feature_group_fc417be9e2a8850c12ef77ea3ba5339e);
+        
+    
+        var popup_b1015937c6d555675201ce9bd3aebdab = L.popup({"maxWidth": "100%"});
+
+        
+            var html_fb9b1fec27d53e24ca87a16438b23c95 = $(`<div id="html_fb9b1fec27d53e24ca87a16438b23c95" style="width: 100.0%; height: 100.0%;">Laghetto dell’EUR (альтернатива вечерком)<br/>Viale America</div>`)[0];
+            popup_b1015937c6d555675201ce9bd3aebdab.setContent(html_fb9b1fec27d53e24ca87a16438b23c95);
+        
+
+        marker_256ed737966515fecf28802ee19ca081.bindPopup(popup_b1015937c6d555675201ce9bd3aebdab)
+        ;
+
+        
+    
+    
+            var marker_a73564010b820285b137a99efc109cb7 = L.marker(
+                [41.8913, 12.4937],
+                {}
+            ).addTo(feature_group_fc417be9e2a8850c12ef77ea3ba5339e);
+        
+    
+        var popup_317fb88953dd5eefea97b3adfc80dbe4 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_1326697af31d4a3a23a91a32defefab3 = $(`<div id="html_1326697af31d4a3a23a91a32defefab3" style="width: 100.0%; height: 100.0%;">View на Колизей — Via Nicola Salvi<br/>Via Nicola Salvi</div>`)[0];
+            popup_317fb88953dd5eefea97b3adfc80dbe4.setContent(html_1326697af31d4a3a23a91a32defefab3);
+        
+
+        marker_a73564010b820285b137a99efc109cb7.bindPopup(popup_317fb88953dd5eefea97b3adfc80dbe4)
+        ;
+
+        
+    
+    
+            var poly_line_6ccf3618a3ffcaa7bd4abca9651fbc9d = L.polyline(
+                [[41.85266, 12.47967], [41.901, 12.5018], [41.7488, 12.6501], [41.7446, 12.6498], [41.8346, 12.4716], [41.8913, 12.4937]],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 3}
+            ).addTo(feature_group_fc417be9e2a8850c12ef77ea3ba5339e);
+        
+    
+            var feature_group_82db370b4d9e7d6954cd0a74b05fbf7f = L.featureGroup(
+                {}
+            ).addTo(map_ddb20b19967c4bd8a761666d226cc4e8);
+        
+    
+            var marker_be08a77a8c1584954513ec84f168e0a7 = L.marker(
+                [41.85266, 12.47967],
+                {}
+            ).addTo(feature_group_82db370b4d9e7d6954cd0a74b05fbf7f);
+        
+    
+        var popup_40a0b124e3eccabc145ac79cfe3b33ba = L.popup({"maxWidth": "100%"});
+
+        
+            var html_920268f964df141f1aeba78cb9d37ec6 = $(`<div id="html_920268f964df141f1aeba78cb9d37ec6" style="width: 100.0%; height: 100.0%;">Ваш адрес (Viale Giustiniano Imperatore, 272)<br/>Старт</div>`)[0];
+            popup_40a0b124e3eccabc145ac79cfe3b33ba.setContent(html_920268f964df141f1aeba78cb9d37ec6);
+        
+
+        marker_be08a77a8c1584954513ec84f168e0a7.bindPopup(popup_40a0b124e3eccabc145ac79cfe3b33ba)
+        ;
+
+        
+    
+    
+            var marker_e4aee17e607c2b0c0c3dd84a00cd4c6d = L.marker(
+                [41.8852, 12.4882],
+                {}
+            ).addTo(feature_group_82db370b4d9e7d6954cd0a74b05fbf7f);
+        
+    
+        var popup_35e6959c3052bae521cb06817ddd456f = L.popup({"maxWidth": "100%"});
+
+        
+            var html_a20d2d040a62e8984cd49ca1bd7a8c34 = $(`<div id="html_a20d2d040a62e8984cd49ca1bd7a8c34" style="width: 100.0%; height: 100.0%;">Circo Massimo (быстрый променад)<br/>Viale Aventino</div>`)[0];
+            popup_35e6959c3052bae521cb06817ddd456f.setContent(html_a20d2d040a62e8984cd49ca1bd7a8c34);
+        
+
+        marker_e4aee17e607c2b0c0c3dd84a00cd4c6d.bindPopup(popup_35e6959c3052bae521cb06817ddd456f)
+        ;
+
+        
+    
+    
+            var marker_aa1806bd4802af076c5197dcb0f726d6 = L.marker(
+                [41.892, 12.487],
+                {}
+            ).addTo(feature_group_82db370b4d9e7d6954cd0a74b05fbf7f);
+        
+    
+        var popup_d519eaa5416d368b9f835037dcf9daa2 = L.popup({"maxWidth": "100%"});
+
+        
+            var html_a706ddeadac8e2c280dae7f1e9bac5f7 = $(`<div id="html_a706ddeadac8e2c280dae7f1e9bac5f7" style="width: 100.0%; height: 100.0%;">Via dei Fori Imperiali (вдоль форумов)<br/>Via dei Fori Imperiali</div>`)[0];
+            popup_d519eaa5416d368b9f835037dcf9daa2.setContent(html_a706ddeadac8e2c280dae7f1e9bac5f7);
+        
+
+        marker_aa1806bd4802af076c5197dcb0f726d6.bindPopup(popup_d519eaa5416d368b9f835037dcf9daa2)
+        ;
+
+        
+    
+    
+            var poly_line_b7b3dd7592398ca26a2a97fd3fbd0e39 = L.polyline(
+                [[41.85266, 12.47967], [41.8852, 12.4882], [41.892, 12.487]],
+                {"bubblingMouseEvents": true, "color": "#3388ff", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "#3388ff", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.6, "smoothFactor": 1.0, "stroke": true, "weight": 3}
+            ).addTo(feature_group_82db370b4d9e7d6954cd0a74b05fbf7f);
+        
+    
+            var layer_control_699c756d2e089b38528a3bf8bf58f34a = {
+                base_layers : {
+                    "openstreetmap" : tile_layer_587ef221622da5f2635887d3ce70434a,
+                },
+                overlays :  {
+                    "\u0414\u0435\u043d\u044c 1 \u2014 14.08 (\u0432\u0435\u0447\u0435\u0440, \u043b\u0435\u0433\u043a\u043e)" : feature_group_cde4f395ca6f2aeb2072fcfa2e2c303c,
+                    "\u0414\u0435\u043d\u044c 2 \u2014 15.08 (\u0412\u0430\u0442\u0438\u043a\u0430\u043d \u0438 \u0446\u0435\u043d\u0442\u0440, \u0431\u0435\u0441\u043f\u043b\u0430\u0442\u043d\u043e)" : feature_group_49da16c2cf7796c4591a0a15dae0904c,
+                    "\u0414\u0435\u043d\u044c 3 \u2014 16.08 (Palazzo Colonna + \u0440\u044b\u043d\u043e\u043a + \u043c\u0443\u0437\u0435\u0439)" : feature_group_75aed04079f3076203d765cb13e3a40a,
+                    "\u0414\u0435\u043d\u044c 4 \u2014 17.08 (Via Appia Antica, \u0432\u0435\u043b\u043e\u0441\u0438\u043f\u0435\u0434\u044b)" : feature_group_bbc91c5c887c125472543da944802d23,
+                    "\u0414\u0435\u043d\u044c 5 \u2014 18.08 (\u041e\u0437\u0435\u0440\u043e \u0410\u043b\u044c\u0431\u0430\u043d\u043e, \u043b\u043e\u0434\u043e\u0447\u043a\u0430)" : feature_group_fc417be9e2a8850c12ef77ea3ba5339e,
+                    "\u0414\u0435\u043d\u044c 6 \u2014 19.08 (\u0443\u0442\u0440\u043e, \u043f\u0435\u0440\u0435\u0434 \u0432\u044b\u043b\u0435\u0442\u043e\u043c)" : feature_group_82db370b4d9e7d6954cd0a74b05fbf7f,
+                },
+            };
+            L.control.layers(
+                layer_control_699c756d2e089b38528a3bf8bf58f34a.base_layers,
+                layer_control_699c756d2e089b38528a3bf8bf58f34a.overlays,
+                {"autoZIndex": true, "collapsed": false, "position": "topright"}
+            ).addTo(map_ddb20b19967c4bd8a761666d226cc4e8);
+            feature_group_49da16c2cf7796c4591a0a15dae0904c.remove();
+            feature_group_75aed04079f3076203d765cb13e3a40a.remove();
+            feature_group_bbc91c5c887c125472543da944802d23.remove();
+            feature_group_fc417be9e2a8850c12ef77ea3ba5339e.remove();
+            feature_group_82db370b4d9e7d6954cd0a74b05fbf7f.remove();
+        
+</script>
+</html>
