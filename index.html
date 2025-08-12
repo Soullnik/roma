@@ -2,75 +2,85 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Rome Budget Trip — 14–19 Aug</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>Rome Budget Trip — 14–19 Aug (Fullscreen Sidebar)</title>
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="anonymous" />
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="anonymous"></script>
   <style>
     :root {
-      --bg: #0f1115;
-      --panel: #161a22;
-      --accent: #3fb950;
-      --muted: #8b95a7;
-      --text: #e6edf3;
-      --border: #283042;
-      --home: #f7c351;
-      --home-text: #111;
+      --bg: #0f1115; --panel: #161a22; --accent: #3fb950; --muted: #8b95a7; --text: #e6edf3; --border: #283042;
+      --home: #f7c351; --home-text: #111;
     }
     * { box-sizing: border-box; }
-    html, body { height: 100%; margin: 0; background: var(--bg); color: var(--text); font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial, 'Apple Color Emoji', 'Segoe UI Emoji'; }
-    #app { display: grid; grid-template-columns: 380px 1fr; grid-template-rows: 1fr; height: 100%; }
-    aside {
+    html, body { height: 100%; margin: 0; background: var(--bg); color: var(--text); font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial; }
+    /* Fullscreen map */
+    #map { position: fixed; inset: 0; z-index: 0; }
+    #map .leaflet-control-container { z-index: 500; }
+
+    /* Sidebar overlay */
+    #sidebar {
+      position: fixed; z-index: 1000;
+      left: 12px; top: 12px; bottom: 12px;
+      width: 380px; max-width: calc(100% - 24px);
       background: linear-gradient(180deg, #121722 0%, #0f1115 100%);
-      border-right: 1px solid var(--border);
-      padding: 16px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.45);
       overflow: auto;
+      transform: translateX(0);
+      transition: transform .25s ease, opacity .25s ease;
     }
-    .title { font-size: 18px; font-weight: 700; margin: 0 0 8px; }
-    .subtitle { font-size: 13px; color: var(--muted); margin-bottom: 12px; }
-    .day-selector { display: grid; gap: 6px; }
-    .day-selector label { display: grid; grid-template-columns: 20px 1fr; gap: 8px; align-items: start; padding: 10px; border-radius: 12px; cursor: pointer; border: 1px solid transparent; }
-    .day-selector input[type="radio"] { accent-color: var(--accent); margin-top: 2px; }
-    .day-selector label:hover { background: rgba(63,185,80,0.08); border-color: rgba(63,185,80,0.25); }
-    .day-title { font-weight: 600; font-size: 14px; line-height: 1.2; }
-    .day-sub { font-size: 12px; color: var(--muted); margin-top: 2px; }
-    .day-info { margin-top: 14px; padding: 12px; border: 1px solid var(--border); border-radius: 12px; background: #0f1320; }
-    .day-info h3 { margin: 0 0 6px; font-size: 16px; }
-    .day-info p { margin: 0 0 8px; color: var(--muted); line-height: 1.45; }
-    .places { display: grid; gap: 8px; }
-    .place { padding: 8px; border: 1px solid var(--border); border-radius: 10px; background: #0d121e; }
-    .place h4 { margin: 0 0 4px; font-size: 14px; }
+    #sidebar.collapsed {
+      transform: translateX(calc(-100% - 16px));
+      opacity: 0.98;
+    }
+
+    .sb-head { position: sticky; top: 0; z-index: 10; padding: 10px 12px; display: flex; align-items: center; gap: 8px;
+      background: #121722; border-bottom: 1px solid var(--border); border-radius: 14px 14px 0 0; }
+    .sb-title { font-weight: 700; font-size: 16px; margin-right: auto; }
+    .btn { padding: 8px 10px; border: 1px solid var(--border); border-radius: 10px; background: #121826; color: var(--text); font-size: 12px; }
+    .btn.accent { border-color: rgba(63,185,80,0.4); color: #d7ffe2; background: rgba(63,185,80,0.12); }
+    .sb-content { padding: 12px; }
+    .summary { font-size: 13px; color: var(--muted); margin: 6px 0 10px; }
+    .radios { display: grid; gap: 6px; margin-bottom: 10px; }
+    .radios label { display: grid; grid-template-columns: 20px 1fr; gap: 8px; align-items: start; padding: 8px; border-radius: 10px; cursor: pointer; }
+    .radios input[type="radio"] { accent-color: var(--accent); margin-top: 2px; }
+    .radios label:hover { background: rgba(63,185,80,0.08); }
+    .place { padding: 10px; border: 1px solid var(--border); border-radius: 10px; background: #0d121e; margin-bottom: 8px; }
+    .place h4 { margin: 0 0 4px; font-size: 15px; }
     .place .addr { color: var(--muted); font-size: 12px; }
     .place .note { margin-top: 4px; font-size: 12px; color: #c5cedb; }
     .place .time { margin-top: 4px; font-size: 12px; color: #9ad2a8; }
     .btn-row { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
-    .btn { display: inline-block; padding: 6px 10px; border: 1px solid var(--border); border-radius: 10px; font-size: 12px; color: var(--text); text-decoration: none; background: #121826; cursor: pointer; }
-    .btn.accent { border-color: rgba(63,185,80,0.4); color: #d7ffe2; background: rgba(63,185,80,0.12); }
-    .legend { position: absolute; bottom: 16px; left: 16px; z-index: 999; background: rgba(22,26,34,0.92);
-      border: 1px solid var(--border); border-radius: 12px; padding: 8px 10px; font-size: 12px; color: var(--muted); }
-    #map { position: relative; }
-    #map-el { width: 100%; height: 100%; }
-    .popup { font-size: 13px; }
-    .popup h4 { margin: 0 0 4px; font-size: 14px; color: var(--text); }
-    .popup .muted { color: var(--muted); }
-    .popup .time { color: #9ad2a8; margin-top: 4px; }
 
-    /* Numbered circle markers */
+    /* Floating controls on map */
+    #controls { position: fixed; right: 12px; top: 12px; z-index: 1000; display: grid; gap: 8px; }
+    .fab { width: 44px; height: 44px; border-radius: 12px;
+      background: rgba(22,26,34,0.95); border: 1px solid var(--border); display:flex; align-items:center; justify-content:center;
+      color: var(--text); font-size: 18px; box-shadow: 0 6px 20px rgba(0,0,0,0.35); }
+    .fab:active { transform: translateY(1px); }
+
+    /* Mobile tweaks */
+    @media (max-width: 900px) {
+      #sidebar { width: min(92vw, 420px); }
+      /* Default collapsed on mobile; JS also enforces on load */
+      #open { display: block; }
+    }
+
+    /* Numbered markers */
     .num-marker { background: transparent; border: none; }
     .num-marker .dot {
-      width: 28px; height: 28px; border-radius: 50%;
+      width: 30px; height: 30px; border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
-      background: var(--accent); color: #09100d; font-weight: 800; font-size: 13px;
+      background: var(--accent); color: #09100d; font-weight: 800; font-size: 14px;
       box-shadow: 0 0 0 2px #0d121e, 0 2px 8px rgba(0,0,0,0.4);
-      transform: translate(-14px, -14px);
+      transform: translate(-15px, -15px);
     }
-    .num-marker.home .dot {
-      background: var(--home); color: var(--home-text);
-    }
+    .num-marker.home .dot { background: var(--home); color: var(--home-text); }
     .num-marker .tail {
-      position: absolute; left: 50%; top: 18px; transform: translateX(-50%);
+      position: absolute; left: 50%; top: 20px; transform: translateX(-50%);
       width: 0; height: 0; border-left: 5px solid transparent; border-right: 5px solid transparent; border-top: 8px solid var(--accent);
       filter: drop-shadow(0 2px 4px rgba(0,0,0,0.4));
     }
@@ -78,158 +88,196 @@
   </style>
 </head>
 <body>
-  <div id="app">
-    <aside>
-      <h1 class="title">Rome 14–19 августа — бюджет</h1>
-      <div class="subtitle">Выберите день — на карте покажутся точки и маршрут только этого дня. Числа на маркерах показывают порядок движения. Жильё — жёлтый маркер.</div>
-      <div class="day-selector" id="day-selector"></div>
-      <div class="day-info" id="day-info"></div>
-    </aside>
-    <section id="map">
-      <div id="map-el"></div>
-      <div class="legend">OSM · Перемещайте карту, кликайте по меткам. В панели слева — тайминги и детали.</div>
-    </section>
+  <div id="map"></div>
+
+  <div id="controls">
+    <button id="open" class="fab" title="Показать сайдбар" style="display:none">☰</button>
+    <button id="fit" class="fab" title="Приблизить маршрут">🎯</button>
+    <button id="gps" class="fab" title="Моё местоположение">📍</button>
   </div>
 
-<script>
-  const ITINERARY = {"day1": {"title": "День 1 — 14.08 (вечер, легко)", "summary": "После прилёта (~16:00) лёгкая прогулка рядом с жильём: базилика Сан‑Паоло (вход бесплатный), стрит-арт Остиенсе, бюджетный ужин поблизости.", "places": [{"name": "Ваше жильё — Viale Giustiniano Imperatore, 272", "lat": 41.85266, "lon": 12.47967, "address": "Остиенсе (рядом с Basilica San Paolo)", "note": "Стартовая точка", "time": "17:00", "isHome": true}, {"name": "Basilica di San Paolo fuori le Mura", "lat": 41.8563, "lon": 12.4769, "address": "Piazzale San Paolo, 1", "note": "Вход бесплатный; прохладно и красиво.", "time": "17:20–18:10"}, {"name": "Street Art Ostiense (Via del Porto Fluviale)", "lat": 41.8706, "lon": 12.4778, "address": "Via del Porto Fluviale, 3–5", "note": "Муралы BLU и др., бесплатно.", "time": "18:20–19:00"}, {"name": "Ужин — пицца al taglio (Остиенсе)", "lat": 41.8627, "lon": 12.482, "address": "Район Ostiense/Piramide", "note": "Бюджетный перекус рядом (по вкусу).", "time": "19:15–20:15"}]}, "day2": {"title": "День 2 — 15.08 (Ватикан и центр, бесплатно)", "summary": "Утром Собор Св. Петра (вход бесплатный). Затем мост Сант’Анджело, Навона → Пантеон (внутрь €5 по желанию) → Треви → Испанская; на закат — терраса Пинчио.", "places": [{"name": "Ваше жильё — Viale Giustiniano Imperatore, 272", "lat": 41.85266, "lon": 12.47967, "address": "Остиенсе (рядом с Basilica San Paolo)", "note": "Стартовая точка", "time": "07:30", "isHome": true}, {"name": "Basilica di San Pietro", "lat": 41.9022, "lon": 12.4539, "address": "Piazza San Pietro", "note": "Вход бесплатный; очереди быстрее рано утром.", "time": "08:15–09:30"}, {"name": "Ponte Sant'Angelo", "lat": 41.9029, "lon": 12.4663, "address": "Ponte Sant'Angelo", "note": "Виды на Замок Святого Ангела.", "time": "09:40–10:00"}, {"name": "Piazza Navona", "lat": 41.8992, "lon": 12.4731, "address": "00186 Roma", "note": "Фонтаны Бернини, уличные музыканты.", "time": "10:15–10:45"}, {"name": "Pantheon (опц. внутрь €5)", "lat": 41.8986, "lon": 12.4768, "address": "Piazza della Rotonda", "note": "Снаружи бесплатно; внутрь входной билет €5.", "time": "10:55–11:25"}, {"name": "Fontana di Trevi", "lat": 41.9009, "lon": 12.4833, "address": "Piazza di Trevi", "note": "Лучше утром/вечером.", "time": "18:30–19:00"}, {"name": "Spanish Steps (Trinità dei Monti)", "lat": 41.9059, "lon": 12.4823, "address": "Piazza di Spagna", "note": "На ступенях сидеть нельзя (штрафы).", "time": "19:10–19:30"}, {"name": "Terrazza del Pincio", "lat": 41.9105, "lon": 12.4789, "address": "Viale Gabriele D'Annunzio", "note": "Отличный бесплатный закатный вид.", "time": "19:45–20:30"}]}, "day3": {"title": "День 3 — 16.08 (Palazzo Colonna + рынок + бесплатный музей)", "summary": "Утро: Palazzo Colonna (короткий маршрут €15; суббота 09:15–13:15). Затем рынок Trionfale и Museo dell’Arte Salvata (бесплатно до 31.08). Вечером — Трастевере и Апельсиновый сад.", "places": [{"name": "Ваше жильё — Viale Giustiniano Imperatore, 272", "lat": 41.85266, "lon": 12.47967, "address": "Остиенсе (рядом с Basilica San Paolo)", "note": "Стартовая точка", "time": "09:00", "isHome": true}, {"name": "Palazzo Colonna — Short Itinerary (€15)", "lat": 41.8998, "lon": 12.4823, "address": "Via della Pilotta, 17", "note": "Суббота 09:15–13:15 (последний вход). Галерея + Апп. Пио + сад.", "time": "09:30–11:00"}, {"name": "Mercato Trionfale", "lat": 41.9095, "lon": 12.4516, "address": "Via Andrea Doria, 3/41", "note": "Сыры, мясные, фрукты; бюджетно. Закрывается около 14:00.", "time": "11:45–12:45"}, {"name": "Museo dell’Arte Salvata (free)", "lat": 41.9029, "lon": 12.4988, "address": "Viale Enrico de Nicola, 78", "note": "Комплекс Термы Диоклетиана; бесплатно до 31.08.", "time": "13:15–14:15"}, {"name": "Piazza di Santa Maria in Trastevere", "lat": 41.8895, "lon": 12.4701, "address": "00153 Roma", "note": "Атмосферный центр Трастевере.", "time": "18:30–19:30"}, {"name": "Giardino degli Aranci + Keyhole", "lat": 41.8799, "lon": 12.4798, "address": "Piazza dei Cavalieri di Malta, 3", "note": "Сад + знаменитая «дырочка» с видом.", "time": "20:00–20:30"}]}, "day4": {"title": "День 4 — 17.08 (Via Appia Antica, велосипеды)", "summary": "Воскресенье — лучший день для Аппии (меньше машин). Старт у Porta San Sebastiano; вдоль древней дороги к Мавзолею Цецилии Метеллы; опционально — Парко дельи Акведотти.", "places": [{"name": "Ваше жильё — Viale Giustiniano Imperatore, 272", "lat": 41.85266, "lon": 12.47967, "address": "Остиенсе (рядом с Basilica San Paolo)", "note": "Стартовая точка", "time": "09:00", "isHome": true}, {"name": "Porta San Sebastiano / Museo delle Mura", "lat": 41.8736, "lon": 12.4985, "address": "Via di Porta San Sebastiano, 18", "note": "Старт Аппии, музей стен.", "time": "09:30–10:00"}, {"name": "Mausoleo di Cecilia Metella (снаружи)", "lat": 41.8396, "lon": 12.5202, "address": "Via Appia Antica, 161", "note": "Иконичная гробница на Аппии.", "time": "11:00–11:20"}, {"name": "Parco degli Acquedotti (опц.)", "lat": 41.8562, "lon": 12.5651, "address": "Via Lemonia, 256", "note": "Древние акведуки среди полей.", "time": "12:00–13:00"}, {"name": "Terrazza sul Foro (вид на Форум)", "lat": 41.8928, "lon": 12.4847, "address": "Via Monte Tarpeo / Piazzale Caffarelli", "note": "Бесплатная смотровая на Форум.", "time": "18:30–19:00"}]}, "day5": {"title": "День 5 — 18.08 (Озеро Альбано, лодочка)", "summary": "Поезд до Castel Gandolfo (~40–50 мин). На месте — педальная лодка/каяк (10–15 €/час), можно купаться. Вечером — озеро EUR и ракурс на Колизей.", "places": [{"name": "Ваше жильё — Viale Giustiniano Imperatore, 272", "lat": 41.85266, "lon": 12.47967, "address": "Остиенсе (рядом с Basilica San Paolo)", "note": "Стартовая точка", "time": "08:30", "isHome": true}, {"name": "Roma Termini (поезд Regionale)", "lat": 41.901, "lon": 12.5018, "address": "Piazza dei Cinquecento, 1", "note": "Региональный поезд до Castel Gandolfo.", "time": "09:10–09:25"}, {"name": "Stazione Castel Gandolfo", "lat": 41.7488, "lon": 12.6501, "address": "00073 Castel Gandolfo RM", "note": "Спуск к озеру ~20 мин пешком.", "time": "10:10–10:20"}, {"name": "Canoa/Kayak Rental — Spiaggia del Lago", "lat": 41.7446, "lon": 12.6498, "address": "Via Spiaggia del Lago, 18", "note": "Педальная лодка/каяк ~10–15 €/час.", "time": "10:40–12:00"}, {"name": "Laghetto dell’EUR (альтернатива)", "lat": 41.8346, "lon": 12.4716, "address": "Viale America", "note": "Парк и озеро EUR, бесплатно.", "time": "18:00–19:00"}, {"name": "Вид на Колизей — Via Nicola Salvi", "lat": 41.8913, "lon": 12.4937, "address": "Via Nicola Salvi", "note": "Лучший ракурс на закат.", "time": "19:30–20:00"}]}, "day6": {"title": "День 6 — 19.08 (утро, внешний осмотр Колизея)", "summary": "Финальный променада вокруг Колизея — лучшие бесплатные ракурсы снаружи: Via dei Fori Imperiali, Parco del Colle Oppio, Via degli Annibaldi, Largo Gaetana Agnesi, Арка Константина, по желанию — Цирк Максимус.", "places": [{"name": "Ваше жильё — Viale Giustiniano Imperatore, 272", "lat": 41.85266, "lon": 12.47967, "address": "Остиенсе (рядом с Basilica San Paolo)", "note": "Стартовая точка", "time": "08:00", "isHome": true}, {"name": "Via dei Fori Imperiali", "lat": 41.892, "lon": 12.487, "address": "00186 Roma", "note": "Вид на форумы и Колизей.", "time": "08:30–09:00"}, {"name": "Parco del Colle Oppio — Belvedere", "lat": 41.8936, "lon": 12.4957, "address": "Parco del Colle Oppio", "note": "Смотровые над Колизеем, тенисто и тихо.", "time": "09:05–09:35"}, {"name": "Via degli Annibaldi — ракурс", "lat": 41.8918, "lon": 12.4948, "address": "Via degli Annibaldi", "note": "Перспектива на Северо‑Восток Колизея.", "time": "09:40–09:55"}, {"name": "Largo Gaetana Agnesi — вид сверху", "lat": 41.8907, "lon": 12.4939, "address": "Largo Gaetana Agnesi", "note": "Площадка над метро Colosseo (линия B).", "time": "10:00–10:15"}, {"name": "Arco di Costantino (снаружи)", "lat": 41.8896, "lon": 12.4903, "address": "Piazza del Colosseo", "note": "Эффектная арка у стен Колизея.", "time": "10:20–10:35"}, {"name": "Circo Massimo (опц.)", "lat": 41.8852, "lon": 12.4882, "address": "Viale Aventino", "note": "Древний ипподром; можно начать/закончить здесь.", "time": "10:45–11:05"}]}};
+  <aside id="sidebar">
+    <div class="sb-head">
+      <div class="sb-title">Rome 14–19 августа — бюджет</div>
+      <button id="close" class="btn">Свернуть</button>
+    </div>
+    <div class="sb-content">
+      <div class="radios" id="day-radios"></div>
+      <div id="day-info"></div>
+    </div>
+  </aside>
 
-  // Map init
-  const map = L.map('map-el', { zoomControl: true }).setView([41.896, 12.482], 12);
-  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-    attribution: '&copy; OpenStreetMap contributors'
-  }).addTo(map);
+  <script>
+    const ITINERARY = {"day1": {"title": "День 1 — 14.08 (вечер, легко)", "summary": "После прилёта (~16:00) лёгкая прогулка рядом с жильём: базилика Сан‑Паоло (вход бесплатный), стрит-арт Остиенсе, бюджетный ужин поблизости.", "places": [{"name": "Ваше жильё — Viale Giustiniano Imperatore, 272", "lat": 41.85266, "lon": 12.47967, "address": "Остиенсе (рядом с Basilica San Paolo)", "note": "Стартовая точка", "time": "17:00", "isHome": true}, {"name": "Basilica di San Paolo fuori le Mura", "lat": 41.8563, "lon": 12.4769, "address": "Piazzale San Paolo, 1", "note": "Вход бесплатный; прохладно и красиво.", "time": "17:20–18:10"}, {"name": "Street Art Ostiense (Via del Porto Fluviale)", "lat": 41.8706, "lon": 12.4778, "address": "Via del Porto Fluviale, 3–5", "note": "Муралы BLU и др., бесплатно.", "time": "18:20–19:00"}, {"name": "Ужин — пицца al taglio (Остиенсе)", "lat": 41.8627, "lon": 12.482, "address": "Район Ostiense/Piramide", "note": "Бюджетный перекус рядом (по вкусу).", "time": "19:15–20:15"}]}, "day2": {"title": "День 2 — 15.08 (Ватикан и центр, бесплатно)", "summary": "Утром Собор Св. Петра (вход бесплатный). Затем мост Сант’Анджело, Навона → Пантеон (внутрь €5 по желанию) → Треви → Испанская; на закат — терраса Пинчио.", "places": [{"name": "Ваше жильё — Viale Giustiniano Imperatore, 272", "lat": 41.85266, "lon": 12.47967, "address": "Остиенсе (рядом с Basilica San Paolo)", "note": "Стартовая точка", "time": "07:30", "isHome": true}, {"name": "Basilica di San Pietro", "lat": 41.9022, "lon": 12.4539, "address": "Piazza San Pietro", "note": "Вход бесплатный; очереди быстрее рано утром.", "time": "08:15–09:30"}, {"name": "Ponte Sant'Angelo", "lat": 41.9029, "lon": 12.4663, "address": "Ponte Sant'Angelo", "note": "Виды на Замок Святого Ангела.", "time": "09:40–10:00"}, {"name": "Piazza Navona", "lat": 41.8992, "lon": 12.4731, "address": "00186 Roma", "note": "Фонтаны Бернини, уличные музыканты.", "time": "10:15–10:45"}, {"name": "Pantheon (опц. внутрь €5)", "lat": 41.8986, "lon": 12.4768, "address": "Piazza della Rotonda", "note": "Снаружи бесплатно; внутрь входной билет €5.", "time": "10:55–11:25"}, {"name": "Fontana di Trevi", "lat": 41.9009, "lon": 12.4833, "address": "Piazza di Trevi", "note": "Лучше утром/вечером.", "time": "18:30–19:00"}, {"name": "Spanish Steps (Trinità dei Monti)", "lat": 41.9059, "lon": 12.4823, "address": "Piazza di Spagna", "note": "На ступенях сидеть нельзя (штрафы).", "time": "19:10–19:30"}, {"name": "Terrazza del Pincio", "lat": 41.9105, "lon": 12.4789, "address": "Viale Gabriele D'Annunzio", "note": "Отличный бесплатный закатный вид.", "time": "19:45–20:30"}]}, "day3": {"title": "День 3 — 16.08 (Palazzo Colonna + рынок + бесплатный музей)", "summary": "Утро: Palazzo Colonna (короткий маршрут €15; суббота 09:15–13:15). Затем рынок Trionfale и Museo dell’Arte Salvata (бесплатно до 31.08). Вечером — Трастевере и Апельсиновый сад.", "places": [{"name": "Ваше жильё — Viale Giustiniano Imperatore, 272", "lat": 41.85266, "lon": 12.47967, "address": "Остиенсе (рядом с Basilica San Paolo)", "note": "Стартовая точка", "time": "09:00", "isHome": true}, {"name": "Palazzo Colonna — Short Itinerary (€15)", "lat": 41.8998, "lon": 12.4823, "address": "Via della Pilotta, 17", "note": "Суббота 09:15–13:15 (последний вход). Галерея + Апп. Пио + сад.", "time": "09:30–11:00"}, {"name": "Mercato Trionfale", "lat": 41.9095, "lon": 12.4516, "address": "Via Andrea Doria, 3/41", "note": "Сыры, мясные, фрукты; бюджетно. Закрывается около 14:00.", "time": "11:45–12:45"}, {"name": "Museo dell’Arte Salvata (free)", "lat": 41.9029, "lon": 12.4988, "address": "Viale Enrico de Nicola, 78", "note": "Комплекс Термы Диоклетиана; бесплатно до 31.08.", "time": "13:15–14:15"}, {"name": "Piazza di Santa Maria in Trastevere", "lat": 41.8895, "lon": 12.4701, "address": "00153 Roma", "note": "Атмосферный центр Трастевере.", "time": "18:30–19:30"}, {"name": "Giardino degli Aranci + Keyhole", "lat": 41.8799, "lon": 12.4798, "address": "Piazza dei Cavalieri di Malta, 3", "note": "Сад + знаменитая «дырочка» с видом.", "time": "20:00–20:30"}]}, "day4": {"title": "День 4 — 17.08 (Via Appia Antica, велосипеды)", "summary": "Воскресенье — лучший день для Аппии (меньше машин). Старт у Porta San Sebastiano; вдоль древней дороги к Мавзолею Цецилии Метеллы; опционально — Парко дельи Акведотти.", "places": [{"name": "Ваше жильё — Viale Giustiniano Imperatore, 272", "lat": 41.85266, "lon": 12.47967, "address": "Остиенсе (рядом с Basilica San Paolo)", "note": "Стартовая точка", "time": "09:00", "isHome": true}, {"name": "Porta San Sebastiano / Museo delle Mura", "lat": 41.8736, "lon": 12.4985, "address": "Via di Porta San Sebastiano, 18", "note": "Старт Аппии, музей стен.", "time": "09:30–10:00"}, {"name": "Mausoleo di Cecilia Metella (снаружи)", "lat": 41.8396, "lon": 12.5202, "address": "Via Appia Antica, 161", "note": "Иконичная гробница на Аппии.", "time": "11:00–11:20"}, {"name": "Parco degli Acquedotti (опц.)", "lat": 41.8562, "lon": 12.5651, "address": "Via Lemonia, 256", "note": "Древние акведуки среди полей.", "time": "12:00–13:00"}, {"name": "Terrazza sul Foro (вид на Форум)", "lat": 41.8928, "lon": 12.4847, "address": "Via Monte Tarpeo / Piazzale Caffarelli", "note": "Бесплатная смотровая на Форум.", "time": "18:30–19:00"}]}, "day5": {"title": "День 5 — 18.08 (Озеро Альбано, лодочка)", "summary": "Поезд до Castel Gandolfo (~40–50 мин). На месте — педальная лодка/каяк (10–15 €/час), можно купаться. Вечером — озеро EUR и ракурс на Колизей.", "places": [{"name": "Ваше жильё — Viale Giustiniano Imperatore, 272", "lat": 41.85266, "lon": 12.47967, "address": "Остиенсе (рядом с Basilica San Paolo)", "note": "Стартовая точка", "time": "08:30", "isHome": true}, {"name": "Roma Termini (поезд Regionale)", "lat": 41.901, "lon": 12.5018, "address": "Piazza dei Cinquecento, 1", "note": "Региональный поезд до Castel Gandolfo.", "time": "09:10–09:25"}, {"name": "Stazione Castel Gandolfo", "lat": 41.7488, "lon": 12.6501, "address": "00073 Castel Gandolfo RM", "note": "Спуск к озеру ~20 мин пешком.", "time": "10:10–10:20"}, {"name": "Canoa/Kayak Rental — Spiaggia del Lago", "lat": 41.7446, "lon": 12.6498, "address": "Via Spiaggia del Lago, 18", "note": "Педальная лодка/каяк ~10–15 €/час.", "time": "10:40–12:00"}, {"name": "Laghetto dell’EUR (альтернатива)", "lat": 41.8346, "lon": 12.4716, "address": "Viale America", "note": "Парк и озеро EUR, бесплатно.", "time": "18:00–19:00"}, {"name": "Вид на Колизей — Via Nicola Salvi", "lat": 41.8913, "lon": 12.4937, "address": "Via Nicola Salvi", "note": "Лучший ракурс на закат.", "time": "19:30–20:00"}]}, "day6": {"title": "День 6 — 19.08 (утро, внешний осмотр Колизея)", "summary": "Финальный променада вокруг Колизея — лучшие бесплатные ракурсы снаружи: Via dei Fori Imperiali, Parco del Colle Oppio, Via degli Annibaldi, Largo Gaetana Agnesi, Арка Константина, по желанию — Цирк Максимус.", "places": [{"name": "Ваше жильё — Viale Giustiniano Imperatore, 272", "lat": 41.85266, "lon": 12.47967, "address": "Остиенсе (рядом с Basilica San Paolo)", "note": "Стартовая точка", "time": "08:00", "isHome": true}, {"name": "Via dei Fori Imperiali", "lat": 41.892, "lon": 12.487, "address": "00186 Roma", "note": "Вид на форумы и Колизей.", "time": "08:30–09:00"}, {"name": "Parco del Colle Oppio — Belvedere", "lat": 41.8936, "lon": 12.4957, "address": "Parco del Colle Oppio", "note": "Смотровые над Колизеем, тенисто и тихо.", "time": "09:05–09:35"}, {"name": "Via degli Annibaldi — ракурс", "lat": 41.8918, "lon": 12.4948, "address": "Via degli Annibaldi", "note": "Перспектива на Северо‑Восток Колизея.", "time": "09:40–09:55"}, {"name": "Largo Gaetana Agnesi — вид сверху", "lat": 41.8907, "lon": 12.4939, "address": "Largo Gaetana Agnesi", "note": "Площадка над метро Colosseo (линия B).", "time": "10:00–10:15"}, {"name": "Arco di Costantino (снаружи)", "lat": 41.8896, "lon": 12.4903, "address": "Piazza del Colosseo", "note": "Эффектная арка у стен Колизея.", "time": "10:20–10:35"}, {"name": "Circo Massimo (опц.)", "lat": 41.8852, "lon": 12.4882, "address": "Viale Aventino", "note": "Древний ипподром; можно начать/закончить здесь.", "time": "10:45–11:05"}]}};
 
-  const dayLayers = {}, dayBounds = {}, dayMarkers = {};
+    // Map init (fullscreen)
+    const map = L.map('map', { zoomControl: true }).setView([41.896, 12.482], 12);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
 
-  function createNumberedIcon(n, isHome=false) {
-    const cls = isHome ? 'num-marker home' : 'num-marker';
-    return L.divIcon({
-      className: cls,
-      html: `<div class="dot">${n}</div><div class="tail"></div>`,
-      iconSize: [28, 36],
-      iconAnchor: [14, 28],
-      popupAnchor: [0, -28]
-    });
-  }
+    const dayLayers = {}, dayBounds = {}, dayMarkers = {};
+    const dayOrder = Object.keys(ITINERARY);
+    let currentDay = dayOrder[0];
 
-  function makePopup(place, num) {
-    return `
-      <div class="popup">
-        <h4>${num}. ${place.name}</h4>
-        ${place.address ? `<div class="muted">${place.address}</div>` : ``}
-        ${place.note ? `<div style="margin-top:6px;">${place.note}</div>` : ``}
-        ${place.time ? `<div class="time">🕒 ${place.time}</div>` : ``}
-      </div>
-    `;
-  }
-
-  function buildDayLayer(dayKey) {
-    const group = L.layerGroup();
-    const bounds = L.latLngBounds();
-    const places = ITINERARY[dayKey].places || [];
-    const coords = [];
-    const markers = [];
-
-    places.forEach((p, idx) => {
-      const num = idx + 1;
-      const icon = createNumberedIcon(num, !!p.isHome);
-      const m = L.marker([p.lat, p.lon], { icon }).bindPopup(makePopup(p, num));
-      m.addTo(group);
-      markers.push(m);
-      bounds.extend([p.lat, p.lon]);
-      coords.push([p.lat, p.lon]);
-    });
-
-    if (coords.length > 1) {
-      L.polyline(coords, { weight: 3, opacity: 0.7 }).addTo(group);
+    function createNumberedIcon(n, isHome=false) {
+      const cls = isHome ? 'num-marker home' : 'num-marker';
+      return L.divIcon({
+        className: cls,
+        html: `<div class="dot">${n}</div><div class="tail"></div>`,
+        iconSize: [30, 38],
+        iconAnchor: [15, 30],
+        popupAnchor: [0, -28]
+      });
     }
-    dayLayers[dayKey] = group;
-    dayBounds[dayKey] = bounds;
-    dayMarkers[dayKey] = markers;
-  }
 
-  const dayOrder = Object.keys(ITINERARY);
-  dayOrder.forEach(k => buildDayLayer(k));
-
-  const selector = document.getElementById('day-selector');
-  const info = document.getElementById('day-info');
-
-  function renderSelector() {
-    selector.innerHTML = '';
-    dayOrder.forEach((k, idx) => {
-      const day = ITINERARY[k];
-      const label = document.createElement('label');
-      label.innerHTML = `
-        <input type="radio" name="day" value="${k}" ${idx===0?'checked':''}>
-        <div>
-          <div class="day-title">${day.title}</div>
-          <div class="day-sub">${day.summary}</div>
+    function makePopup(place, num) {
+      return `
+        <div class="popup">
+          <h4>${num}. ${place.name}</h4>
+          ${place.address ? `<div class="muted">${place.address}</div>` : ``}
+          ${place.note ? `<div style="margin-top:6px;">${place.note}</div>` : ``}
+          ${place.time ? `<div class="time">🕒 ${place.time}</div>` : ``}
         </div>
       `;
-      selector.appendChild(label);
-    });
-  }
+    }
 
-  function renderDayInfo(dayKey) {
-    const day = ITINERARY[dayKey];
-    const placesHtml = (day.places || []).map((p, idx) => `
-      <div class="place">
-        <h4>${idx+1}. ${p.name}</h4>
-        ${p.address ? `<div class="addr">${p.address}</div>` : ``}
-        ${p.note ? `<div class="note">${p.note}</div>` : ``}
-        ${p.time ? `<div class="time">🕒 ${p.time}</div>` : ``}
-        <div class="btn-row">
-          <a class="btn accent" href="javascript:void(0)" onclick="focusMarker('${dayKey}', ${idx})">Показать на карте</a>
-          <a class="btn" href="https://maps.google.com/?q=${encodeURIComponent(p.name + ' ' + (p.address || 'Rome'))}" target="_blank" rel="noopener">Открыть в Google Maps</a>
+    function buildDayLayer(dayKey) {
+      const group = L.layerGroup();
+      const bounds = L.latLngBounds();
+      const places = ITINERARY[dayKey].places || [];
+      const coords = [];
+      const markers = [];
+
+      places.forEach((p, idx) => {
+        const num = idx + 1;
+        const icon = createNumberedIcon(num, !!p.isHome);
+        const m = L.marker([p.lat, p.lon], { icon }).bindPopup(makePopup(p, num));
+        m.addTo(group);
+        markers.push(m);
+        bounds.extend([p.lat, p.lon]);
+        coords.push([p.lat, p.lon]);
+      });
+
+      if (coords.length > 1) {
+        L.polyline(coords, { weight: 3, opacity: 0.7 }).addTo(group);
+      }
+      dayLayers[dayKey] = group;
+      dayBounds[dayKey] = bounds;
+      dayMarkers[dayKey] = markers;
+    }
+
+    dayOrder.forEach(k => buildDayLayer(k));
+
+    function fitToDay(dayKey) {
+      const b = dayBounds[dayKey];
+      if (b && b.isValid()) map.fitBounds(b.pad(0.15));
+    }
+    function focusMarker(dayKey, idx) {
+      const m = (dayMarkers[dayKey] || [])[idx];
+      if (!m) return;
+      const latLng = m.getLatLng();
+      map.setView(latLng, 16, { animate: true });
+      m.openPopup();
+    }
+
+    function showDay(dayKey) {
+      if (currentDay && dayLayers[currentDay]) map.removeLayer(dayLayers[currentDay]);
+      dayLayers[dayKey].addTo(map);
+      currentDay = dayKey;
+      renderInfo(dayKey);
+      fitToDay(dayKey);
+    }
+
+    // Sidebar radios + info
+    const radios = document.getElementById('day-radios');
+    const info = document.getElementById('day-info');
+
+    function renderRadios() {
+      radios.innerHTML = '';
+      dayOrder.forEach((k, idx) => {
+        const id = `r-${idx}`;
+        const label = document.createElement('label');
+        label.innerHTML = `
+          <input type="radio" name="day" id="${id}" value="${k}" ${k===currentDay?'checked':''}>
+          <div>
+            <div style="font-weight:600;">${ITINERARY[k].title}</div>
+            <div style="color:#8b95a7;font-size:12px;margin-top:2px;">${ITINERARY[k].summary}</div>
+          </div>
+        `;
+        radios.appendChild(label);
+      });
+    }
+
+    function renderInfo(dayKey) {
+      const day = ITINERARY[dayKey];
+      const placesHtml = (day.places || []).map((p, idx) => `
+        <div class="place">
+          <h4>${idx+1}. ${p.name}</h4>
+          ${p.address ? `<div class="addr">${p.address}</div>` : ``}
+          ${p.note ? `<div class="note">${p.note}</div>` : ``}
+          ${p.time ? `<div class="time">🕒 ${p.time}</div>` : ``}
+          <div class="btn-row">
+            <a class="btn accent" href="javascript:void(0)" onclick="window._focus('${dayKey}', ${idx})">Показать на карте</a>
+            <a class="btn" href="https://maps.google.com/?q=${encodeURIComponent(p.name + ' ' + (p.address || 'Rome'))}" target="_blank" rel="noopener">Открыть в Google Maps</a>
+          </div>
         </div>
-      </div>
-    `).join('');
+      `).join('');
+      info.innerHTML = `
+        <div style="font-weight:700;">${day.title}</div>
+        <div class="summary">${day.summary}</div>
+        <div class="btn-row" style="margin-bottom:8px;">
+          <a class="btn accent" href="javascript:void(0)" onclick="window._fit('${dayKey}')">Приблизить маршрут дня</a>
+        </div>
+        ${placesHtml}
+      `;
+    }
 
-    info.innerHTML = `
-      <h3>${day.title}</h3>
-      <p>${day.summary}</p>
-      <div class="btn-row">
-        <a class="btn accent" href="javascript:void(0)" onclick="fitToDay('${dayKey}')">Приблизить маршрут дня</a>
-      </div>
-      <div class="places" style="margin-top:10px">${placesHtml}</div>
-    `;
-  }
+    radios.addEventListener('change', (e) => {
+      const v = e.target && e.target.value;
+      if (!v || v===currentDay) return;
+      showDay(v);
+    });
 
-  let currentDay = dayOrder[0];
-  function showDay(dayKey) {
-    if (currentDay && dayLayers[currentDay]) map.removeLayer(dayLayers[currentDay]);
-    dayLayers[dayKey].addTo(map);
-    currentDay = dayKey;
-    renderDayInfo(dayKey);
-    fitToDay(dayKey);
-  }
+    // Floating controls
+    document.getElementById('fit').addEventListener('click', () => fitToDay(currentDay));
+    document.getElementById('gps').addEventListener('click', () => {
+      if (!navigator.geolocation) return alert('Геолокация не поддерживается.');
+      navigator.geolocation.getCurrentPosition((pos) => {
+        const { latitude, longitude } = pos.coords;
+        const me = L.circleMarker([latitude, longitude], { radius: 8, weight: 2 }).addTo(map);
+        me.bindPopup('Вы здесь').openPopup();
+        map.setView([latitude, longitude], 15, { animate: true });
+      }, (err) => {
+        alert('Не удалось получить геолокацию: ' + err.message);
+      }, { enableHighAccuracy: true, timeout: 8000, maximumAge: 10000 });
+    });
 
-  function fitToDay(dayKey) {
-    const b = dayBounds[dayKey];
-    if (b && b.isValid()) map.fitBounds(b.pad(0.15));
-  }
+    // Sidebar open/close
+    const sidebar = document.getElementById('sidebar');
+    const btnOpen = document.getElementById('open');
+    const btnClose = document.getElementById('close');
 
-  window.focusMarker = function(dayKey, idx) {
-    const m = (dayMarkers[dayKey] || [])[idx];
-    if (!m) return;
-    const latLng = m.getLatLng();
-    map.setView(latLng, 16, { animate: true });
-    m.openPopup();
-  };
-  window.fitToDay = fitToDay;
+    function setCollapsed(collapsed) {
+      sidebar.classList.toggle('collapsed', collapsed);
+      btnOpen.style.display = collapsed ? 'block' : 'none';
+      setTimeout(() => map.invalidateSize(), 260);
+    }
 
-  // Init UI
-  renderSelector();
-  showDay(currentDay);
+    btnOpen.addEventListener('click', () => setCollapsed(false));
+    btnClose.addEventListener('click', () => setCollapsed(true));
 
-  // Radio change (single-select)
-  selector.addEventListener('change', (e) => {
-    const selected = e.target && e.target.value;
-    if (!selected || selected === currentDay) return;
-    showDay(selected);
-  });
-</script>
+    // Initial layout
+    function init() {
+      renderRadios();
+      showDay(currentDay);
+      const isMobile = window.matchMedia('(max-width: 900px)').matches;
+      setCollapsed(isMobile); // collapsed on mobile, open on desktop
+    }
+    window._fit = fitToDay;
+    window._focus = focusMarker;
+    init();
+  </script>
 </body>
 </html>
